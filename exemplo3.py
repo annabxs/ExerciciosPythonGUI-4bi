@@ -50,7 +50,11 @@ class Application:
         self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
         self.mensagem.pack()
 
+# aqui é onde realmente faz o login e a senha, antes era só estilização da tela
+# importante falar que não tem banco de dados, então ele não envia para nenhum lugar
     def verificaSenha(self):
+        # self referencia a classe Application, nome referencia o atributo da classe
+        # get é o método do próprio programa que pega as informações do usuário
         usuario = self.nome.get()
         senha = self.senha.get()
                 
