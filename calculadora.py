@@ -117,7 +117,7 @@ botao_3.grid(row=4, column=2, padx=2, pady=2)
 botao_resultado = tk.Button(janela, text="=", width=5, height=5, command=lambda:digitar("0"))
 botao_resultado.grid(row=4, column=3, padx=2, pady=2, rowspan=2, sticky="W")
 
-# quinto row
+# quinto roww
 
 botao_0 = tk.Button(janela, text="0", width=13, height=2, command=lambda:digitar("0"))
 botao_0.grid(row=5, column=0, padx=2, pady=2, columnspan=2, sticky="W")
