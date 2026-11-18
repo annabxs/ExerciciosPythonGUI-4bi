@@ -46,7 +46,7 @@ def realizarOperacao(igual):
 
     resultado = None
     if igual == "=":
-#NAO TA FUNCIONANDL
+#NAO TA FUNCIONANDO
         if operacao == "+":
             resultado = numero1 + numero2
         elif operacao == "-":
