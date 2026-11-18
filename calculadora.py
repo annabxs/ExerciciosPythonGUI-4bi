@@ -1,5 +1,5 @@
 import tkinter as tk
-
+global numero1, numero2, operacao
 numero1 = None
 numero2 = None
 operacao = None
@@ -8,9 +8,10 @@ def digitar(numero):
     visor.insert(tk.END, numero)
 
 def resetar():
+    global numero1, numero2, operacao
     numero1 = None
     numero2 = None
-    operacao = None
+    operacao = ""
 
 def limpar():
     visor.delete(0, tk.END)
@@ -19,6 +20,7 @@ def apagar():
     visor.delete(len(visor.get()) - 1, tk.END)
 
 def pegarNumeroDoVisor():
+    global numero1, numero2, operacao
     valor = float(visor.get())
 
     if numero1 == None:
@@ -29,27 +31,30 @@ def pegarNumeroDoVisor():
     limpar()
 
 def definirOperacao(tipo):
-    if operacao == None:
+    global operacao
+    if operacao != None:
         return
 
     operacao = tipo
+    limpar()
 
-def realizarOperacao():
+def realizarOperacao(igual):
     if numero1 == None or numero2 == None or operacao == None:
         return
 
     limpar()
 
     resultado = None
-
-    if operacao == "+":
-        resultado = numero1 + numero2
-    elif operacao == "-":
-        resultado = numero1 - numero2
-    elif operacao == "x":
-        resultado = numero1 * numero2
-    else:
-        resultado = numero1 / numero2
+    if igual == "=":
+#NAO TA FUNCIONANDL
+        if operacao == "+":
+            resultado = numero1 + numero2
+        elif operacao == "-":
+            resultado = numero1 - numero2
+        elif operacao == "x":
+            resultado = numero1 * numero2
+        else:
+            resultado = numero1 / numero2
 
     visor.insert(0, str(resultado))
 
@@ -114,7 +119,7 @@ botao_2.grid(row=4, column=1, padx=2, pady=2)
 botao_3 = tk.Button(janela, text="3", width=5, height=2, command=lambda:digitar("3"))
 botao_3.grid(row=4, column=2, padx=2, pady=2)
 
-botao_resultado = tk.Button(janela, text="=", width=5, height=5, command=lambda:digitar("0"))
+botao_resultado = tk.Button(janela, text="=", width=5, height=5, command=lambda: realizarOperacao("="))
 botao_resultado.grid(row=4, column=3, padx=2, pady=2, rowspan=2, sticky="W")
 
 # quinto roww
