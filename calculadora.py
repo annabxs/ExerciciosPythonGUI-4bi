@@ -6,12 +6,16 @@ operacao = None
 
 def digitar(numero):
     visor.insert(tk.END, numero)
+    if visor.get(len(visor.get()) - 1) == ".": #ta errado - tem que verificar o ponto - manipulação de string
+        return
+
+
 
 def resetar():
     global numero1, numero2, operacao
     numero1 = None
     numero2 = None
-    operacao = ""
+    operacao = None
 
 def limpar():
     visor.delete(0, tk.END)
@@ -31,6 +35,7 @@ def pegarNumeroDoVisor():
     limpar()
 
 def definirOperacao(tipo):
+    pegarNumeroDoVisor()
     global operacao
     if operacao != None:
         return
@@ -38,25 +43,31 @@ def definirOperacao(tipo):
     operacao = tipo
     limpar()
 
-def realizarOperacao(igual):
+def realizarOperacao():
+    pegarNumeroDoVisor()
     if numero1 == None or numero2 == None or operacao == None:
         return
 
     limpar()
 
     resultado = None
-    if igual == "=":
-#NAO TA FUNCIONANDO
-        if operacao == "+":
-            resultado = numero1 + numero2
-        elif operacao == "-":
-            resultado = numero1 - numero2
-        elif operacao == "x":
-            resultado = numero1 * numero2
-        else:
-            resultado = numero1 / numero2
+
+    print (numero1, numero2, operacao) #para debug
+
+    if operacao == "+":
+        resultado = numero1 + numero2
+    elif operacao == "-":
+        resultado = numero1 - numero2
+    elif operacao == "x":
+        resultado = numero1 * numero2
+    elif operacao == "/":
+        resultado = numero1 / numero2
+    
+
+    resetar()
 
     visor.insert(0, str(resultado))
+
 
 janela = tk.Tk()
 janela.title("Primeiros botões")
@@ -74,10 +85,10 @@ botao_c.grid(row=1, column=0, padx=2, pady=2)
 botao_apagar = tk.Button(janela, text="⌫", width=6, height=2, command=apagar)
 botao_apagar.grid(row=1, column=1, padx=2, pady=2)
 
-dividir = tk.Button(janela, text="÷", width=5, height=2, command=apagar)
+dividir = tk.Button(janela, text="÷", width=5, height=2, command=lambda:definirOperacao("/"))
 dividir.grid(row=1, column=2, padx=2, pady=2)
 
-botao_mult = tk.Button(janela, text="×", width=5, height=2, command=apagar)
+botao_mult = tk.Button(janela, text="×", width=5, height=2, command=lambda:definirOperacao("x"))
 botao_mult.grid(row=1, column=3, padx=2, pady=2)
 
 # segunda row
@@ -91,7 +102,7 @@ botao_8.grid(row=2, column=1, padx=2, pady=2)
 botao_9 = tk.Button(janela, text="9", width=5, height=2, command=lambda:digitar("9"))
 botao_9.grid(row=2, column=2, padx=2, pady=2)
 
-botao_menos = tk.Button(janela, text="-", width=5, height=2, command=lambda:digitar("6"))
+botao_menos = tk.Button(janela, text="-", width=5, height=2, command=lambda:definirOperacao("-"))
 botao_menos.grid(row=2, column=3, padx=2, pady=2)
 
 # terceiro row
@@ -119,7 +130,7 @@ botao_2.grid(row=4, column=1, padx=2, pady=2)
 botao_3 = tk.Button(janela, text="3", width=5, height=2, command=lambda:digitar("3"))
 botao_3.grid(row=4, column=2, padx=2, pady=2)
 
-botao_resultado = tk.Button(janela, text="=", width=5, height=5, command=lambda: realizarOperacao("="))
+botao_resultado = tk.Button(janela, text="=", width=5, height=5, command=lambda: realizarOperacao())
 botao_resultado.grid(row=4, column=3, padx=2, pady=2, rowspan=2, sticky="W")
 
 # quinto roww
@@ -127,7 +138,7 @@ botao_resultado.grid(row=4, column=3, padx=2, pady=2, rowspan=2, sticky="W")
 botao_0 = tk.Button(janela, text="0", width=13, height=2, command=lambda:digitar("0"))
 botao_0.grid(row=5, column=0, padx=2, pady=2, columnspan=2, sticky="W")
 
-botao_decimal = tk.Button(janela, text=".", width=5, height=2, command=lambda:digitar("0"))
+botao_decimal = tk.Button(janela, text=".", width=5, height=2, command=lambda:digitar("."))
 botao_decimal.grid(row=5, column=2, padx=2, pady=2)
 
 
